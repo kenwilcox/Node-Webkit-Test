@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Hello World!</title>
+  </head>
+  <body>
+    <h1>Hello World!</h1>
+    We are using node.js <script>document.write(process.version);</script>
+    <br>
+    The value of mytest(200) is: <script>mytest(200);</script>
+
+    <script>
+    //window.requireNode = window.require;
+    //window.require = undefined;
+    // if (process.platform === 'win32')
+    //   require('./windows-menu');
+    // else
+    //   console.log(process.platform);
+
+    if (process.platform === 'win32') {
+      // Windows menu
+      var gui = require('nw.gui');
+      var win = gui.Window.get();
+      var menubar = new gui.Menu({
+        type: 'menubar'
+      });
+
+      var file = new gui.Menu();
+      file.append(new gui.MenuItem({
+        label: 'Action 1',
+        click: function() {
+          alert('Action 1 Clicked');
+        }
+      }));
+
+      file.append(new gui.MenuItem({
+        label: 'Action 2',
+        click: function() {
+          alert('Action 2 Clicked');
+        }
+      }));
+
+      menubar.append(new gui.MenuItem({label: 'File', submenu: file}));
+
+      win.menu = menubar;
+    }
+
+    // Tray stuff
+    var tray = new gui.Tray({
+      icon: 'icon.png',
+      title: 'App Tray'
+    });
+
+    var menu = new gui.Menu();
+    menu.append(new gui.MenuItem({
+      type: 'checkbox',
+      label: 'Are you sure?'
+    }));
+    tray.menu = menu;
+
+    // Clipboard
+    var clipboard = gui.Clipboard.get();
+    var text = clipboard.get('text');
+    alert('Clipboard text: ' + text);
+    </script>
+  </body>
+</html>
